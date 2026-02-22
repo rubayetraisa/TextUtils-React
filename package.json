@@ -1,5 +1,4 @@
 {
-  "homepage": "https://rubayetraisa.github.io/TextUtils-React",
   "name": "my-app",
   "private": true,
   "version": "0.0.0",
@@ -13,7 +12,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "gh-pages": "^6.3.0",
     "prop-types": "^15.8.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

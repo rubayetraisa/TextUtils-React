@@ -4,12 +4,12 @@ import TextForm from './components/TextForm'
 import About from './components/About';
 import { useState } from 'react';
 import Alert from './components/Alert';
-// import {
-//   BrowserRouter as Router,
-//   Routes, //instead of switch
-//   Route,
-//   Link
-// } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Routes, //instead of switch
+  Route,
+  Link
+} from "react-router-dom"
 
 
 function App() {
@@ -29,7 +29,20 @@ function App() {
     }, 1500);
   }
 
-  const toggleMode = () =>{
+  const removeBodyClasses=()=>{
+    document.body.classList.remove('bg-light');
+    document.body.classList.remove('bg-dark');
+    document.body.classList.remove('bg-primary');
+    document.body.classList.remove('bg-warning');
+    document.body.classList.remove('bg-danger');
+    document.body.classList.remove('bg-success');
+  }
+  const toggleMode = (cls) =>{
+  if(cls==='light'|| cls==='dark' || cls===null)
+  {
+    console.log(cls);
+    console.log(mode);
+    removeBodyClasses();
     if(mode === "light")
     {
       setMode("dark");
@@ -43,6 +56,19 @@ function App() {
       showAlert("Light Mode has been enabled", "success");
       
     }
+  }
+  else
+  {removeBodyClasses();
+  console.log(cls);
+  document.body.classList.add('bg-'+cls); 
+
+  if(cls==='primary')
+  {
+    document.querySelectorAll(".btn").forEach(btn => {
+      btn.classList.add("border", "border-white", "border-3");
+    });
+  }
+  }
   }
 
   const changeColortoPurple = () =>{
@@ -64,21 +90,21 @@ function App() {
 
   return (
     <>
-      {/* <Router>    */}
+      <Router>   
         <Navbar title="TextUtils" aboutText="About TextUtils" mode={mode} toggleMode={toggleMode} changeColortoPurple={changeColortoPurple} changeColortoGreen={changeColortoGreen} changeColortoGrey={changeColortoGrey}/>
         <Alert alert={alert}/>
-        <TextForm heading="Enter a text to analyze below" mode={mode} showAlert={showAlert}/>
+        {/* <TextForm heading="Enter a text to analyze below" mode={mode} showAlert={showAlert}/> */}
         {/* <About/> */}
 
         <div className="container my-3">
-          {/* <Routes> */}
-            {/* <Route exact path="/" element={<TextForm heading="Enter a text to analyze below" mode={mode} showAlert={showAlert}/>}/> */}
-            {/* <Route exact path="/about" element={<About/> }/>  */}
+          <Routes>
+            <Route exact path="/" element={<TextForm heading="Enter a text to analyze below" mode={mode} showAlert={showAlert}/>}/>
+            <Route exact path="/about" element={<About mode={mode}/> }/> 
             {/* partial path avoiding using "exact" */}
             {/* <Route  /> */}
-          {/* </Routes> */}
+          </Routes>
         </div>
-      {/* </Router>  */}
+      </Router> 
     </>
   )
 }
